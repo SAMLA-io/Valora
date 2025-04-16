@@ -39,6 +39,8 @@ The system is organized into the following components:
    EMAIL_USER=your_email@gmail.com
    EMAIL_PASSWORD=your_app_password
    OPENAI_API_KEY=your_openai_api_key
+   CSV_FILE_PATH=products.csv
+   CHECKING_INTERVAL=180
    ```
 
    Note: For Gmail, you'll need to use an App Password instead of your regular password. See [Google's documentation](https://support.google.com/accounts/answer/185833) for details.
