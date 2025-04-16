@@ -91,9 +91,3 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Deploy to Server (example)
-        run: |
-          echo "Deploying application..."
-          # Insert your deployment commands here, e.g., Docker push or deploy to cloud
-
