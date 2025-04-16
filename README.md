@@ -180,6 +180,7 @@ The system uses the following environment variables:
 - `EMAIL_PASSWORD`: App password for Gmail authentication
 - `OPENAI_API_KEY`: API key for OpenAI services
 - `CSV_FILE_PATH`: Path to the products CSV file
+- `CHECKING_INTERVAL`: Interval in seconds between email checks
 
 ## Dependencies
 
