@@ -21,7 +21,7 @@ import json
 import smtplib, ssl
 from openai import OpenAI
 from dotenv import load_dotenv
-from invoice import generate_invoice_pdf
+from src.algorithms.invoice import generate_invoice_pdf
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
