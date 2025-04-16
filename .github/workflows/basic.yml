@@ -1,0 +1,95 @@
+name: Python CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-requirements:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Check if requirements.txt exists
+        run: |
+          if [ ! -f requirements.txt ]; then
+            echo "requirements.txt not found!"
+            exit 1
+          fi
+
+      - name: Check if Dockerfile exists
+        run: |
+          if [ ! -f Dockerfile ]; then
+            echo "Dockerfile not found!"
+            exit 1
+          fi
+
+      - name: Check if any app.py exists
+        run: |
+          if ! find . -name 'app.py' -print -quit | grep -q .; then
+            echo "No app.py found!"
+            exit 1
+          fi
+
+  install-dependencies:
+    runs-on: ubuntu-latest
+    needs: check-requirements
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+  run-tests:
+    runs-on: ubuntu-latest
+    needs: install-dependencies
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+
+      - name: Run tests
+        run: |
+          # Assuming tests are in a folder called 'tests'
+          pytest tests
+
+  build-docker-image:
+    runs-on: ubuntu-latest
+    needs: install-dependencies
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Docker image
+        run: |
+          docker build -t my-python-app .
+          
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-docker-image
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to Server (example)
+        run: |
+          echo "Deploying application..."
+          # Insert your deployment commands here, e.g., Docker push or deploy to cloud
+
